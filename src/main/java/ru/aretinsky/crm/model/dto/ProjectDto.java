@@ -10,4 +10,5 @@ public class ProjectDto {
     private long id;
     private String name;
     private int sum;
+    private long customerId;
 }

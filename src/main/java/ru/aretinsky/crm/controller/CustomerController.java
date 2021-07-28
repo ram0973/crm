@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.aretinsky.crm.exception.CustomerNotFoundException;
+import ru.aretinsky.crm.model.ErrorResponse;
 import ru.aretinsky.crm.model.dto.CustomerDto;
-import ru.aretinsky.crm.model.entity.Customer;
 import ru.aretinsky.crm.service.CustomerService;
 
 import java.util.List;
@@ -29,5 +30,11 @@ public class CustomerController {
     @GetMapping("/all")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ErrorResponse> customerNotFoundExceptionHandler(CustomerNotFoundException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(404, exception.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

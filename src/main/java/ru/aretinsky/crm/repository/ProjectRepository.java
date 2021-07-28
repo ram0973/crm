@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RestController;
 import ru.aretinsky.crm.model.entity.Project;
 
+import java.util.List;
+
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
+    List<Project> findAllByCustomerId(long customerId);
 }

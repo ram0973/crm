@@ -15,23 +15,23 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final ModelMapper modelMapper;
+    private final ModelMapper mapper;
 
     @Autowired
-    protected CustomerService(CustomerRepository customerRepository, ModelMapper modelMapper) {
+    protected CustomerService(CustomerRepository customerRepository, ModelMapper mapper) {
         this.customerRepository = customerRepository;
-        this.modelMapper = modelMapper;
+        this.mapper = mapper;
     }
 
     public List<CustomerDto> findAll() {
         List<Customer> customerList = customerRepository.findAll();
         return customerList.stream()
-                .map(customer -> modelMapper.map(customer, CustomerDto.class))
+                .map(customer -> mapper.map(customer, CustomerDto.class))
                 .collect(Collectors.toList());
     }
 
     public CustomerDto findById(long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
-        return modelMapper.map(customer, CustomerDto.class);
+        return mapper.map(customer, CustomerDto.class);
     }
 }
