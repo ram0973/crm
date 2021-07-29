@@ -20,8 +20,8 @@ public class Project {
     @Column(nullable = false)
     private int sum;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customerId;
 
 }

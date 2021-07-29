@@ -12,5 +12,4 @@ public class CustomerDto {
     private long id;
     private String firstName;
     private String surname;
-    private List<ProjectDto> projects;
 }

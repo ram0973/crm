@@ -2,6 +2,7 @@ package ru.aretinsky.crm.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import ru.aretinsky.crm.exception.CustomerNotFoundException;
 import ru.aretinsky.crm.exception.ProjectNotFoundException;
 import ru.aretinsky.crm.model.dto.ProjectDto;
 import ru.aretinsky.crm.model.entity.Customer;
@@ -9,6 +10,7 @@ import ru.aretinsky.crm.model.entity.Project;
 import ru.aretinsky.crm.repository.ProjectRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,14 +37,9 @@ public class ProjectService {
     }
 
     public List<ProjectDto> findAllByCustomerId(long customerId) {
-        List<Project> projectList = projectRepository.findAllByCustomerId(customerId);
+        var projectList = projectRepository.findAllByCustomerId(customerId);
         return projectList.stream()
                 .map(customer -> mapper.map(customer, ProjectDto.class))
                 .collect(Collectors.toList());
-    }
-
-    public Project createProject(ProjectDto projectDto) {
-        var project = mapper.map(projectDto, Project.class);
-        return projectRepository.save(project);
     }
 }

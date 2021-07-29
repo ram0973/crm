@@ -4,20 +4,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Customer {
+public class Cheque {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 50)
-    private String firstName;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project projectId;
 
-    @Column(nullable = false, length = 50)
-    private String surname;
+    //
+
 }

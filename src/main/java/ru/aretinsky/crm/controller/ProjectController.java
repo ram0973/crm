@@ -38,12 +38,6 @@ public class ProjectController {
         return new ResponseEntity<>(projectService.findAllByCustomerId(customerId), HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Project> createNewProject(@RequestBody ProjectDto projectDto) {
-        var project = projectService.createProject(projectDto);
-        return new ResponseEntity<>(project, HttpStatus.CREATED);
-    }
-
     @ExceptionHandler(ProjectNotFoundException.class)
     public ResponseEntity<ErrorResponse> projectNotFoundExceptionHandler(ProjectNotFoundException exception) {
         ErrorResponse errorResponse = new ErrorResponse(404, exception.getMessage());
